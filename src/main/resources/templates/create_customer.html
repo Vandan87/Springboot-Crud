@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Customer Form</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link th:href="@{/Design/design.css}" rel="stylesheet" />
+	<style>
+		.error-message {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript" th:src="@{/Design/validation.js}"></script>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center" th:if="${customer.id == null}">Create New Customer</h1>
+				<h1 class="text-center" th:if="${customer.id != null}">Update Customer</h1>
+				<div class="card-body">
+					<form th:action="@{/customers}" th:object="${customer}" method="post">
+						<input type="hidden" name="id" th:field="*{id}" />
+						<div class="form-group">
+							<label><span style="color: red;">*</span> First Name </label>
+							<input type="text" name="firstName" th:field="*{firstName}" class="form-control" placeholder="First Name" maxlength="10"/>
+							<div class="error-message" id="firstNameError"></div>
+						</div>
+						<div class="form-group">
+							<label><span style="color: red;">*</span> Last Name </label>
+							<input type="text" name="lastName" th:field="*{lastName}" class="form-control" placeholder="Last Name" maxlength="10"/>
+							<div class="error-message" id="lastNameError"></div>
+						</div>
+						<div class="form-group">
+							<label> <span style="color: red;">*</span> Date of birth</label>
+							<input type="date" name="dateOfBirth" id="dateOfBirth" th:field="*{dateOfBirth}" class="form-control" oninput="calculateAge(this)" />
+							<div class="error-message"></div>
+						</div>
+						<div class="form-group">
+							<label><span style="color: red;">*</span> Mobile </label>
+							<input type="text" name="mobile" th:field="*{mobile}" class="form-control mobile-input" placeholder="Mobile Number" />
+							<div class="error-message" id="mobileError"></div>
+							<div th:if="${mobileNotUnique}" class="error-message" id="mobileNotUniqueError">Mobile number is already in use.</div>
+						</div>
+						<div class="form-group">
+							<label><span style="color: red;">*</span> Address 1 </label>
+							<input type="text" name="address1" th:field="*{address1}" class="form-control" placeholder="Address 1" />
+							<div class="error-message"></div>
+						</div>
+						<div class="form-group">
+							<label>&ensp;Address 2</label>
+							<input type="text" name="address2" th:field="*{address2}" class="form-control" placeholder="Address 2" />
+						</div>
+						<div class="form-group">
+							<label>&ensp;Age</label>
+							<input type="number" name="age" th:field="*{age}" class="form-control" placeholder="Age" readonly />
+							<div class="error-message" id="ageError"></div>
+						</div>
+						<div class="form-group">
+							<label><span style="color: red;">*</span> Gender </label>
+							<div class="form-check form-check-inline">
+								<input type="radio" id="male" name="gender" th:field="*{gender}" value="Male" class="form-check-input" onclick="checkRadio()" />
+								<label for="male" class="form-check-label">Male</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="radio" id="female" name="gender" th:field="*{gender}" value="Female" class="form-check-input" onclick="checkRadio()" />
+								<label for="female" class="form-check-label">Female</label>
+							</div>
+							<div id="genderError" class="error-message"></div>
+						</div>
+						<div class="form-group">
+							<label><span style="color: red;">*</span> Email </label>
+							<input type="email" name="email" th:field="*{email}" class="form-control email-input" placeholder="Email" />
+							<div class="error-message" id="emailError"></div>
+							<div th:if="${emailNotUnique}" class="error-message" id="emailNotUniqueError">Email address is already in use.</div>
+						</div>
+						<div class="box-footer">
+							<button type="submit" class="btn btn-primary">
+								Submit
+							</button>
+							<button type="reset" class="btn btn-primary">
+								Reset
+							</button>
+							<a href="/customers"  class="btn btn-primary">Back to view page</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:if="${resetMobileField}" th:inline="javascript">
+		resetMobileField();
+	</script>
+	<script th:if="${resetEmailField}" th:inline="javascript">
+		resetEmailField();
+	</script>
+</body>
+</html>

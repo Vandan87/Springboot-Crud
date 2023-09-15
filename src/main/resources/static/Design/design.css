@@ -1,0 +1,67 @@
+body {
+	background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d);
+	font-family: sans-serif;
+}
+
+.container {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.card {
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+
+h1 {
+	text-align: center;
+	color: #333;
+}
+
+.form-group label {
+	font-weight: bold;
+}
+
+.form-control {
+	border-radius: 5px;
+}
+
+.form-group input {
+	margin-bottom: 10px;
+}
+
+.btn-primary {
+	font-weight: bold;
+	color: white;
+	background-color: #d43f8d;
+	border: none;
+	transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+}
+
+.form-check-inline {
+	margin-left: 10px;
+}
+
+.form-check-label {
+	margin-bottom: 10px;
+}
+
+.box-footer {
+	margin-top: 20px;
+}
+
+.error-message::after {
+	content: attr(data-error-message);
+    color: red;
+    display: block;
+}
+
+label {
+	color: black;
+}
